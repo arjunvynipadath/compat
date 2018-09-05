@@ -19,6 +19,10 @@
 #define PCI_EXP_DEVCTL2_ATOMIC_REQ		(1 << 6)
 #endif
 
+#ifndef PCI_EXP_DEVCTL2_ATOMIC_EGRESS_BLOCK
+#define PCI_EXP_DEVCTL2_ATOMIC_EGRESS_BLOCK	(1 << 7)
+#endif
+
 #endif /* (LINUX_VERSION_CODE < KERNEL_VERSION(4,9,0)) */
 
 #endif /* LINUX_4_9_COMPAT_H */
