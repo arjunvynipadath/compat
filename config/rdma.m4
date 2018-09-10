@@ -8410,6 +8410,297 @@ AC_DEFUN([LINUX_CONFIG_COMPAT],
 			[dev_pm_qos_update_user_latency_tolerance is exported by the kernel])],
 	[])
 
+	AC_MSG_CHECKING([if linux/bio.h bio_endio has 1 parameter])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/bio.h>
+	],[
+		bio_endio(NULL);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_BIO_ENDIO_1_PARAM, 1,
+			[linux/bio.h bio_endio has 1 parameter])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if bio.h bio_init has 3 parameters])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/bio.h>
+	],[
+		bio_init(NULL, NULL, false);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_BIO_INIT_3_PARAMS, 1,
+			  [bio.h bio_init has 3 parameters])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if blkdev.h has __blkdev_issue_discard])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/blkdev.h>
+	],[
+		__blkdev_issue_discard(NULL, 0, 0, 0, 0, NULL);
+
+		return 0;
+	],[
+	        AC_MSG_RESULT(yes)
+	        AC_DEFINE(HAVE___BLKDEV_ISSUE_DISCARD, 1,
+	                [__blkdev_issue_discard is defined])
+	],[
+	        AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if blkdev.h has __blkdev_issue_zeroout])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/blkdev.h>
+	],[
+		__blkdev_issue_zeroout(NULL, 0, 0, 0, NULL, 0);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_BLKDEV_ISSUE_ZEROOUT, 1,
+			[__blkdev_issue_zeroout exist])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if blkdev.h has blk_poll])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/blkdev.h>
+	],[
+		blk_poll(NULL, 0);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_BLK_POLL, 1,
+			[blk_poll exist])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if linux/inet.h has inet_addr_is_any])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/inet.h>
+	],[
+		inet_addr_is_any(NULL);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_INET_ADDR_IS_ANY, 1,
+			[inet_addr_is_any is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if string.h has memchr_inv])
+	LB_LINUX_TRY_COMPILE([
+	#include <linux/string.h>
+	],[
+		memchr_inv(NULL, 0, 0);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_MEMCHR_INV, 1,
+		[memchr_inv is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if string.h has memcpy_and_pad])
+	LB_LINUX_TRY_COMPILE([
+	#include <linux/string.h>
+	],
+	[
+		memcpy_and_pad(NULL, 0, NULL, 0, ' ');
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_MEMCPY_AND_PAD, 1,
+		[memcpy_and_pad is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if string.h has memdup_user_nul])
+	LB_LINUX_TRY_COMPILE([
+	#include <linux/string.h>
+	],[
+		memdup_user_nul(NULL, 0);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_MEMDUP_USER_NUL, 1,
+		[memdup_user_nul is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if blk_types.h has REQ_IDLE])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/blk_types.h>
+	],[
+		int flags = REQ_IDLE;
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_REQ_IDLE, 1,
+			[blk_types.h has REQ_IDLE])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if linux/scatterlist.h sg_alloc_table_chained has 3 parameters])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/scatterlist.h>
+	],[
+		sg_alloc_table_chained(NULL, 0, NULL);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_SG_ALLOC_TABLE_CHAINED_3_PARAMS, 1,
+			[sg_alloc_table_chained has 3 parameters])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if linux/scatterlist.h has sgl_alloc])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/scatterlist.h>
+	],[
+		sgl_alloc(0, 0, NULL);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_SGL_ALLOC, 1,
+			[sgl_alloc is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if linux/scatterlist.h has sgl_free])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/scatterlist.h>
+	],[
+		sgl_free(NULL);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_SGL_FREE, 1,
+			[sgl_free is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if linux/scatterlist.h has sg_zero_buffer])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/scatterlist.h>
+	],[
+		sg_zero_buffer(NULL, 0, 0, 0);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_SG_ZERO_BUFFER, 1,
+			[sg_zero_buffer is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if string.h has strnicmp])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/string.h>
+	],[
+		char a[10] = "aaa";
+		char b[10] = "bbb";
+		strnicmp(a, b, sizeof(a));
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_STRNICMP, 1,
+			  [strnicmp is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if struct bio has member bi_error])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/blk_types.h>
+	],[
+		struct bio b = {
+			.bi_error = 0,
+		};
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_STRUCT_BIO_BI_ERROR, 1,
+			[struct bio has member bi_error])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if struct bio has member bi_iter])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/blk_types.h>
+	],[
+		struct bio b = {
+			.bi_iter = 0,
+		};
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_STRUCT_BIO_BI_ITER, 1,
+			[struct bio has member bi_iter])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if struct bio has member bi_opf])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/blk_types.h>
+	],[
+		struct bio b = {
+			.bi_opf = 0,
+		};
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_STRUCT_BIO_BI_OPF, 1,
+			[struct bio has member bi_opf])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if linux/bio.h submit_bio has 1 parameter])
+	LB_LINUX_TRY_COMPILE([
+		#include <linux/bio.h>
+		#include <linux/fs.h>
+	],[
+		submit_bio(NULL);
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_SUBMIT_BIO_1_PARAM, 1,
+			[linux/bio.h submit_bio has 1 parameter])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
 ])
 #
 # COMPAT_CONFIG_HEADERS
