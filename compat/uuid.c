@@ -1,3 +1,5 @@
+#include <linux/version.h>
+
 #if (defined(RHEL_MAJOR) && RHEL_MAJOR -0 == 7 && RHEL_MINOR -0 >= 2) || \
 	(LINUX_VERSION_CODE >= KERNEL_VERSION(4, 4, 0))
 
