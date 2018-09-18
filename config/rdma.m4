@@ -3540,6 +3540,21 @@ AC_DEFUN([LINUX_CONFIG_COMPAT],
 		AC_MSG_RESULT(no)
 	])
 
+	AC_MSG_CHECKING([if ethtool.h enum ethtool_link_mode_bit_indices has ETHTOOL_LINK_MODE_10000baseSR_Full_BIT])
+	LB_LINUX_TRY_COMPILE([
+		#include <uapi/linux/ethtool.h>
+	],[
+		enum ethtool_link_mode_bit_indices x = ETHTOOL_LINK_MODE_10000baseSR_Full_BIT;
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_ETHTOOL_LINK_MODE_10000baseSR_Full_BIT, 1,
+			  [ETHTOOL_LINK_MODE_10000baseSR_Full_BIT is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
 	AC_MSG_CHECKING([if include/net/flow_dissector.h exists])
 	LB_LINUX_TRY_COMPILE([
 		#include <net/flow_dissector.h>
@@ -3769,6 +3784,22 @@ AC_DEFUN([LINUX_CONFIG_COMPAT],
 		AC_MSG_RESULT(yes)
 		AC_DEFINE(HAVE_TC_FLOWER_OFFLOAD, 1,
 			  [struct tc_cls_flower_offload is defined])
+	],[
+		AC_MSG_RESULT(no)
+	])
+
+	AC_MSG_CHECKING([if struct tc_cls_common_offload exists])
+	LB_LINUX_TRY_COMPILE([
+		#include <net/pkt_cls.h>
+	],[
+		struct tc_cls_common_offload common;
+		common = common;
+
+		return 0;
+	],[
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(HAVE_TC_CLS_COMMON_OFFLOAD, 1,
+			  [tc_cls_common_offload is defined])
 	],[
 		AC_MSG_RESULT(no)
 	])
